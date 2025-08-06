@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "902890022651",
+    "project_id": "doctor-app-af802",
+    "storage_bucket": "doctor-app-af802.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:902890022651:android:e9dbb1dfdb209c48dff25e",
+        "android_client_info": {
+          "package_name": "com.example.doctorapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "902890022651-13pvvk0ft1qfl4hqfb5q8afdhun1sl5p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDoSkBbbuuKQ3rVjillaj0AFH9zmMDqnFU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "902890022651-13pvvk0ft1qfl4hqfb5q8afdhun1sl5p.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "902890022651-752agfqmnjjplp8jnluklhdgjnun5r3i.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.doctorapp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:902890022651:android:2611b3a3e6859380dff25e",
+        "android_client_info": {
+          "package_name": "com.example.healthcare_assignment"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "902890022651-13pvvk0ft1qfl4hqfb5q8afdhun1sl5p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDoSkBbbuuKQ3rVjillaj0AFH9zmMDqnFU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "902890022651-13pvvk0ft1qfl4hqfb5q8afdhun1sl5p.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "902890022651-752agfqmnjjplp8jnluklhdgjnun5r3i.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.doctorapp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
