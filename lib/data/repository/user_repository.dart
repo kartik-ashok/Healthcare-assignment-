@@ -7,4 +7,8 @@ class UserRepository {
   Future<UserModel> loginUser(String email, String password) {
     return _apiService.login(email, password);
   }
+
+  Future<UserModel> userPosts() {
+    return _apiService.userPosts();
+  }
 }

@@ -17,4 +17,16 @@ class ApiService {
       throw Exception("Login failed");
     }
   }
+
+  Future<UserModel> userPosts() async {
+    // Use http or dio to call API
+    final response = await http.post(
+      Uri.parse(ApiEndpoints.baseUrl),
+    );
+    if (response.statusCode == 200) {
+      return UserModel.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception("Login failed");
+    }
+  }
 }
