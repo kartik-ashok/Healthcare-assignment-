@@ -1,29 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:healthcare_assignment/core/constants/app_imagepaths.dart';
+import 'package:healthcare_assignment/core/constants/app_sizes.dart';
+import 'package:healthcare_assignment/core/constants/app_text_styles.dart';
 import 'package:healthcare_assignment/presentation/screens/pages/service_listing.dart';
 
-class TopPetService extends StatelessWidget {
+class TopPetService extends StatefulWidget {
   const TopPetService({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Pet Services',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(primarySwatch: Colors.teal),
-      home: const HomeScreen(),
-    );
-  }
-}
-
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<TopPetService> {
   final List<String> categories = const [
     'All',
     'Grooming',
@@ -128,12 +116,8 @@ class _HomeScreenState extends State<HomeScreen> {
     }
 
     return Scaffold(
-      // appBar: AppBar(
-      //   title: const Text('Pet Services'),
-      //   centerTitle: true,
-      // ),
       body: Padding(
-        padding: const EdgeInsets.all(12.0),
+        padding: EdgeInsets.all(ResponsiveSize.width(4)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -146,42 +130,69 @@ class _HomeScreenState extends State<HomeScreen> {
               },
               decoration: InputDecoration(
                 hintText: 'Search for grooming, vet, or boarding',
-                prefixIcon: const Icon(Icons.search),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
+                hintStyle: TextStyle(color: Colors.grey[600], fontSize: 16),
+                prefixIcon: const Icon(Icons.search, color: Colors.grey),
+                filled: true,
+                fillColor: Colors.grey[200], // Light background
+                contentPadding: const EdgeInsets.symmetric(vertical: 14.0),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius:
+                      BorderRadius.circular(25), // Large radius for pill shape
+                  borderSide: BorderSide(color: Colors.transparent),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(25),
+                  borderSide:
+                      BorderSide(color: Colors.blue.shade300, width: 1.5),
                 ),
               ),
             ),
-            const SizedBox(height: 16),
+
+            SizedBox(height: ResponsiveSize.height(2)),
 
             // Categories Dropdown
-            DropdownButton<String>(
+            DropdownButtonFormField<String>(
               value: selectedCategory,
               onChanged: (String? newValue) {
                 setState(() {
                   selectedCategory = newValue!;
                 });
               },
+              decoration: InputDecoration(
+                contentPadding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                filled: true,
+                fillColor: Colors.grey[200],
+                hintText: "Select Category",
+                hintStyle: TextStyle(color: Colors.grey[600]),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide.none,
+                ),
+              ),
+              dropdownColor: Colors.white,
+              icon: const Icon(Icons.keyboard_arrow_down_rounded,
+                  color: Colors.black),
               items: categories.map<DropdownMenuItem<String>>((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
-                  child: Text(value),
+                  child: Text(
+                    value,
+                    style: const TextStyle(
+                        fontSize: 16, fontWeight: FontWeight.w500),
+                  ),
                 );
               }).toList(),
             ),
 
-            const SizedBox(height: 16),
+            SizedBox(height: ResponsiveSize.height(2)),
 
-            const Text(
-              'Top Rated Pet Centers',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
+            Text('Top Rated Pet Centers', style: AppTextStyles.heading2),
 
-            const SizedBox(height: 10),
+            SizedBox(height: ResponsiveSize.height(1)),
 
             // Top Rated Pet Centers Grid
-            SizedBox(
-              height: 200, // Set a fixed height for the grid
+            Expanded(
               child: GridView.builder(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
@@ -201,94 +212,48 @@ class _HomeScreenState extends State<HomeScreen> {
                       ));
                     },
                     child: Card(
+                      elevation: 5,
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12)),
-                      elevation: 3,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(8),
-                            child: Image.asset(
-                              center['image'],
-                              width: 100,
-                              height: 100,
-                              fit: BoxFit.cover,
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.all(ResponsiveSize.width(0)),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(
+                                  ResponsiveSize.width(2)),
+                              child: Container(
+                                width: ResponsiveSize.width(100),
+                                height: ResponsiveSize.height(50),
+                                child: Image.asset(
+                                  center['image'],
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
                             ),
-                          ),
-                          const SizedBox(height: 8),
-                          Text(
-                            center['name'],
-                            style: const TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 16),
-                          ),
-                          Text(
-                            '${center['location']} • ⭐ ${center['rating']}',
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ),
-
-            const SizedBox(height: 16),
-
-            const Text(
-              'Featured Pet Centers',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-
-            const SizedBox(height: 10),
-
-            // Featured Pet Centers List
-            Expanded(
-              child: ListView.builder(
-                itemCount: filteredCenters.length,
-                itemBuilder: (context, index) {
-                  final center = filteredCenters[index];
-                  return InkWell(
-                    onTap: () {
-                      Navigator.push(context, MaterialPageRoute(
-                        builder: (context) {
-                          return const ServiceListingScreen();
-                        },
-                      ));
-                    },
-                    child: Card(
-                      margin: const EdgeInsets.symmetric(vertical: 8),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12)),
-                      elevation: 3,
-                      child: ListTile(
-                        leading: ClipRRect(
-                          borderRadius: BorderRadius.circular(8),
-                          child: Image.asset(
-                            center['image'],
-                            width: 60,
-                            height: 60,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                        title: Text(center['name']),
-                        subtitle: Text(
-                            '${center['location']} • ⭐ ${center['rating']}'),
-                        trailing: ElevatedButton(
-                          onPressed: () {},
-                          style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8)),
-                          ),
-                          child: const Text('Book'),
+                            SizedBox(height: ResponsiveSize.height(1)),
+                            Text(
+                              center['name'],
+                              style: AppTextStyles.medium1
+                                  .copyWith(fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
+                            ),
+                            SizedBox(height: ResponsiveSize.height(0.5)),
+                            Text(
+                              '${center['location']} • ⭐ ${center['rating']}',
+                              style: AppTextStyles.small1,
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
                         ),
                       ),
                     ),
                   );
                 },
               ),
-            )
+            ),
           ],
         ),
       ),

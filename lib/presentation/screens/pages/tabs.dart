@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:healthcare_assignment/core/constants/app_sizes.dart';
 import 'package:healthcare_assignment/presentation/screens/pages/categories.dart';
 import 'package:healthcare_assignment/presentation/screens/pages/top_pet_service.dart';
-import 'package:provider/provider.dart';
 
 class MyDashboard extends StatefulWidget {
   const MyDashboard({super.key});
@@ -41,6 +40,8 @@ class _MyAssessmentsState extends State<MyDashboard>
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: ResponsiveSize.height(12)),
+
+              /// TabBar container
               Container(
                 decoration: BoxDecoration(
                   color: const Color(0xfff1f1f6),
@@ -49,14 +50,11 @@ class _MyAssessmentsState extends State<MyDashboard>
                 child: Padding(
                   padding: EdgeInsets.all(ResponsiveSize.width(4)),
                   child: TabBar(
-                    dividerColor: Colors.transparent,
-
                     controller: _tabController,
                     indicatorSize: TabBarIndicatorSize.tab,
-                    indicatorColor:
-                        Colors.transparent, // 👈 This removes the line
+                    dividerColor: Colors.transparent,
+                    indicatorColor: Colors.transparent,
                     indicatorWeight: 0,
-
                     indicator: BoxDecoration(
                       borderRadius:
                           BorderRadius.circular(ResponsiveSize.width(40)),
@@ -86,11 +84,17 @@ class _MyAssessmentsState extends State<MyDashboard>
                   ),
                 ),
               ),
+
               SizedBox(height: ResponsiveSize.height(12)),
+
+              /// TabBar views
               Expanded(
                 child: TabBarView(
                   controller: _tabController,
-                  children: const [PetServiceApp(), TopPetService()],
+                  children: const [
+                    Categories(),
+                    TopPetService(),
+                  ],
                 ),
               ),
             ],

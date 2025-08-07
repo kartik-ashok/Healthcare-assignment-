@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:healthcare_assignment/core/constants/app_imagepaths.dart';
+import 'package:healthcare_assignment/core/constants/app_sizes.dart';
+import 'package:healthcare_assignment/core/constants/app_text_styles.dart';
 
 class PetCenterDetailScreen extends StatelessWidget {
   const PetCenterDetailScreen({super.key});
@@ -25,74 +28,90 @@ class PetCenterDetailScreen extends StatelessWidget {
     ];
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Pet Center Details')),
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text('Pet Center Details', style: AppTextStyles.heading2),
+        elevation: 4,
+      ),
       body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Header Image
-            Image.network(
-              'https://placekitten.com/800/300',
-              height: 200,
-              width: double.infinity,
-              fit: BoxFit.cover,
-            ),
-
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text('Paw Palace',
-                      style:
-                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-                  const SizedBox(height: 8),
-                  const Text('123 Pet Street, Animal Town'),
-                  const Text('Contact: (123) 456-7890'),
-                  const SizedBox(height: 20),
-                  const Text('Services Offered',
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                  ...services.map((s) => ListTile(
-                        contentPadding: EdgeInsets.zero,
-                        title: Text(s['name']!),
-                        trailing: Text(s['fee']!,
-                            style:
-                                const TextStyle(fontWeight: FontWeight.bold)),
-                      )),
-                  const SizedBox(height: 20),
-                  const Text('Available Professionals',
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                  const SizedBox(height: 10),
-                  Column(
-                    children: professionals.map((pro) {
-                      return ListTile(
-                        contentPadding: EdgeInsets.zero,
-                        leading: CircleAvatar(
-                          backgroundImage: NetworkImage(pro['image']!),
-                        ),
-                        title: Text(pro['name']!),
-                        subtitle: Text(pro['title']!),
-                      );
-                    }).toList(),
-                  ),
-                ],
+        child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Image.asset(
+                AppImagePaths.clinic1,
+                width: double.infinity,
+                fit: BoxFit.cover,
               ),
-            ),
-          ],
+              Padding(
+                padding: EdgeInsets.all(ResponsiveSize.width(4)),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Paw Palace', style: AppTextStyles.heading1),
+                    SizedBox(height: ResponsiveSize.height(1)),
+                    Text(
+                      '123 Pet Street, Animal Town',
+                      style: AppTextStyles.heading2,
+                    ),
+                    Text(
+                      'Contact: (123) 456-7890',
+                      style: AppTextStyles.heading2,
+                    ),
+                    SizedBox(height: ResponsiveSize.height(2)),
+                    Text('Services Offered', style: AppTextStyles.heading2),
+                    ...services.map((s) => ListTile(
+                          contentPadding: EdgeInsets.zero,
+                          title: Text(s['name']!, style: AppTextStyles.medium1),
+                          trailing:
+                              Text(s['fee']!, style: AppTextStyles.medium2),
+                        )),
+                    SizedBox(height: ResponsiveSize.height(2)),
+                    Text('Available Professionals',
+                        style: AppTextStyles.heading2),
+                    SizedBox(height: ResponsiveSize.height(1.2)),
+                    Column(
+                      children: professionals.map((pro) {
+                        return ListTile(
+                          contentPadding: EdgeInsets.zero,
+                          leading: ClipRRect(
+                              borderRadius: BorderRadius.circular(25),
+                              child: Image.network(pro['image']!)),
+                          title: Text(
+                            pro['name']!,
+                            style: AppTextStyles.medium1,
+                          ),
+                          subtitle: Text(
+                            pro['title']!,
+                            style: AppTextStyles.medium2,
+                          ),
+                        );
+                      }).toList(),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(12.0),
+        padding: EdgeInsets.all(ResponsiveSize.width(3)),
         child: ElevatedButton(
           onPressed: () {},
           style: ElevatedButton.styleFrom(
-            padding: const EdgeInsets.symmetric(vertical: 16),
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            padding: EdgeInsets.symmetric(
+              vertical: ResponsiveSize.height(2),
+            ),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(ResponsiveSize.width(3)),
+            ),
           ),
-          child: const Text('Book Appointment', style: TextStyle(fontSize: 16)),
+          child: Text(
+            'Book Appointment',
+            style: AppTextStyles.heading2,
+          ),
         ),
       ),
     );

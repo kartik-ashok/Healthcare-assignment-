@@ -5,9 +5,9 @@ class AppImagePaths {
   static const String clinic4 = 'assets/clinics/clinic3.jpg';
   static const String clinic5 = 'assets/clinics/clinic3.jpg';
 
-  static const String cow = 'assets/clinics/clinic3.jpg';
-  static const String cat = 'assets/clinics/clinic3.jpg';
-  static const String dog = 'assets/clinics/clinic3.jpg';
-  static const String deer = 'assets/clinics/clinic3.jpg';
-  static const String buffalo = 'assets/clinics/clinic3.jpg';
+  static const String cow = 'assets/animals/cow.jpg';
+  static const String cat = 'assets/animals/cat.jpg';
+  static const String dog = 'assets/animals/dog.jpg';
+  static const String deer = 'assets/animals/deer.jpg';
+  static const String buffalo = 'assets/animals/buffalo.jpg';
 }

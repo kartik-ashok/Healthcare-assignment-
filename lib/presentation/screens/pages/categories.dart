@@ -1,29 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:healthcare_assignment/core/constants/app_colors.dart';
 import 'package:healthcare_assignment/core/constants/app_imagepaths.dart';
+import 'package:healthcare_assignment/core/constants/app_sizes.dart';
+import 'package:healthcare_assignment/core/constants/app_text_styles.dart';
 import 'package:healthcare_assignment/presentation/screens/pages/service_listing.dart';
 
-class PetServiceApp extends StatelessWidget {
-  const PetServiceApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Pet Services',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(primarySwatch: Colors.teal),
-      home: const HomeScreen(),
-    );
-  }
-}
-
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class Categories extends StatefulWidget {
+  const Categories({super.key});
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<Categories> {
   final List<String> categories = const [
     'All',
     'Grooming',
@@ -122,7 +111,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(.0),
+        padding: EdgeInsets.all(ResponsiveSize.width(2)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -135,38 +124,66 @@ class _HomeScreenState extends State<HomeScreen> {
               },
               decoration: InputDecoration(
                 hintText: 'Search for grooming, vet, or boarding',
-                prefixIcon: const Icon(Icons.search),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
+                hintStyle: TextStyle(color: Colors.grey[600], fontSize: 16),
+                prefixIcon: const Icon(Icons.search, color: Colors.grey),
+                filled: true,
+                fillColor: Colors.grey[200], // Light background
+                contentPadding: const EdgeInsets.symmetric(vertical: 14.0),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius:
+                      BorderRadius.circular(25), // Large radius for pill shape
+                  borderSide: const BorderSide(color: Colors.transparent),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(25),
+                  borderSide:
+                      BorderSide(color: Colors.blue.shade300, width: 1.5),
                 ),
               ),
             ),
-            const SizedBox(height: 16),
 
-            // Categories Dropdown
-            DropdownButton<String>(
+            SizedBox(height: ResponsiveSize.height(10)),
+            DropdownButtonFormField<String>(
               value: selectedCategory,
               onChanged: (String? newValue) {
                 setState(() {
                   selectedCategory = newValue!;
                 });
               },
+              decoration: InputDecoration(
+                contentPadding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                filled: true,
+                fillColor: Colors.grey[200],
+                hintText: "Select Category",
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide.none,
+                ),
+              ),
+              dropdownColor: Colors.white,
+              icon: const Icon(Icons.keyboard_arrow_down_rounded,
+                  color: Colors.black),
               items: categories.map<DropdownMenuItem<String>>((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
-                  child: Text(value),
+                  child: Text(
+                    value,
+                    style: const TextStyle(
+                        fontSize: 16, fontWeight: FontWeight.w500),
+                  ),
                 );
               }).toList(),
             ),
 
-            const SizedBox(height: 16),
+            SizedBox(height: ResponsiveSize.height(10)),
 
-            const Text(
+            Text(
               'Featured Pet Centers',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: AppTextStyles.heading2,
             ),
 
-            const SizedBox(height: 10),
+            SizedBox(height: ResponsiveSize.height(10)),
 
             // Featured Pet Centers List
             Expanded(
@@ -174,6 +191,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 itemCount: filteredCenters.length,
                 itemBuilder: (context, index) {
                   final center = filteredCenters[index];
+
                   return InkWell(
                     onTap: () {
                       Navigator.push(context, MaterialPageRoute(
@@ -183,29 +201,49 @@ class _HomeScreenState extends State<HomeScreen> {
                       ));
                     },
                     child: Card(
-                      margin: const EdgeInsets.symmetric(vertical: 8),
+                      margin: EdgeInsets.symmetric(
+                          vertical: ResponsiveSize.height(10)),
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12)),
+                        borderRadius:
+                            BorderRadius.circular(ResponsiveSize.width(3)),
+                      ),
                       elevation: 3,
                       child: ListTile(
                         leading: ClipRRect(
-                          borderRadius: BorderRadius.circular(8),
-                          child: Image.asset(
-                            center['image'],
-                            width: 60,
-                            height: 60,
-                            fit: BoxFit.cover,
+                          borderRadius:
+                              BorderRadius.circular(ResponsiveSize.width(2)),
+                          child: Container(
+                            width: ResponsiveSize.width(60),
+                            height: ResponsiveSize.height(60),
+                            child: Image.asset(
+                              center['image'],
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
-                        title: Text(center['name']),
+                        title: Text(
+                          center['name'],
+                          style: AppTextStyles.medium1,
+                        ),
                         subtitle: Text(
-                            '${center['location']} • ⭐ ${center['rating']}'),
+                          '${center['location']} • ⭐ ${center['rating']}',
+                          style: AppTextStyles.medium2,
+                        ),
                         trailing: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            // Handle booking action
+                          },
                           style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8)),
-                          ),
+                              backgroundColor: AppColors.primaryBlue,
+                              foregroundColor: Colors.white, // Text color
+                              elevation: 4, // Subtle shadow
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 12),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(
+                                    ResponsiveSize.width(3)),
+                              ),
+                              textStyle: AppTextStyles.medium1),
                           child: const Text('Book'),
                         ),
                       ),
