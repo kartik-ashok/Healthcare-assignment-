@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:healthcare_assignment/core/constants/app_colors.dart';
 import 'package:healthcare_assignment/core/constants/app_imagepaths.dart';
 import 'package:healthcare_assignment/core/constants/app_sizes.dart';
 import 'package:healthcare_assignment/core/constants/app_text_styles.dart';
@@ -41,10 +42,12 @@ class ServiceListingScreen extends StatelessWidget {
         vertical: ResponsiveSize.height(4),
       ),
       decoration: BoxDecoration(
-        color: isOpen ? Colors.green : Colors.red,
+        color: AppColors.primaryBlue,
+        //  isOpen ? Colors.green : Colors.red,
         borderRadius: BorderRadius.circular(ResponsiveSize.width(6)),
       ),
-      child: Text(isOpen ? 'Open' : 'Closed', style: AppTextStyles.medium1),
+      child: Text(isOpen ? 'Open' : 'Closed',
+          style: AppTextStyles.medium1.copyWith(color: AppColors.white)),
     );
   }
 
@@ -114,11 +117,13 @@ class ServiceListingScreen extends StatelessWidget {
                           ),
                           SizedBox(height: ResponsiveSize.height(0.5)),
                           Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Icon(
                                 Icons.star,
                                 color: Colors.amber[700],
-                                size: ResponsiveSize.width(7),
+                                // size: ResponsiveSize.width(7),
                               ),
                               SizedBox(width: ResponsiveSize.width(1)),
                               Text(
@@ -137,7 +142,10 @@ class ServiceListingScreen extends StatelessWidget {
                               return Chip(
                                 label: Text(service['petTypes'][i],
                                     style: AppTextStyles.medium1),
-                                backgroundColor: Colors.teal.shade50,
+                                backgroundColor:
+                                    AppColors.primaryBlue.withOpacity(0.2),
+                                side:
+                                    const BorderSide(color: Colors.transparent),
                               );
                             }),
                           ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:healthcare_assignment/core/constants/app_colors.dart';
 import 'package:healthcare_assignment/core/constants/app_imagepaths.dart';
 import 'package:healthcare_assignment/core/constants/app_sizes.dart';
 import 'package:healthcare_assignment/core/constants/app_text_styles.dart';
@@ -35,7 +36,7 @@ class PetCenterDetailScreen extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(10),
+          padding: const EdgeInsets.all(15),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -44,63 +45,59 @@ class PetCenterDetailScreen extends StatelessWidget {
                 width: double.infinity,
                 fit: BoxFit.cover,
               ),
-              Padding(
-                padding: EdgeInsets.all(ResponsiveSize.width(4)),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('Paw Palace', style: AppTextStyles.heading1),
-                    SizedBox(height: ResponsiveSize.height(1)),
-                    Text(
-                      '123 Pet Street, Animal Town',
-                      style: AppTextStyles.heading2,
-                    ),
-                    Text(
-                      'Contact: (123) 456-7890',
-                      style: AppTextStyles.heading2,
-                    ),
-                    SizedBox(height: ResponsiveSize.height(2)),
-                    Text('Services Offered', style: AppTextStyles.heading2),
-                    ...services.map((s) => ListTile(
-                          contentPadding: EdgeInsets.zero,
-                          title: Text(s['name']!, style: AppTextStyles.medium1),
-                          trailing:
-                              Text(s['fee']!, style: AppTextStyles.medium2),
-                        )),
-                    SizedBox(height: ResponsiveSize.height(2)),
-                    Text('Available Professionals',
-                        style: AppTextStyles.heading2),
-                    SizedBox(height: ResponsiveSize.height(1.2)),
-                    Column(
-                      children: professionals.map((pro) {
-                        return ListTile(
-                          contentPadding: EdgeInsets.zero,
-                          leading: ClipRRect(
-                              borderRadius: BorderRadius.circular(25),
-                              child: Image.network(pro['image']!)),
-                          title: Text(
-                            pro['name']!,
-                            style: AppTextStyles.medium1,
-                          ),
-                          subtitle: Text(
-                            pro['title']!,
-                            style: AppTextStyles.medium2,
-                          ),
-                        );
-                      }).toList(),
-                    ),
-                  ],
-                ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Paw Palace', style: AppTextStyles.heading1),
+                  SizedBox(height: ResponsiveSize.height(1)),
+                  Text(
+                    '123 Pet Street, Animal Town',
+                    style: AppTextStyles.small1,
+                  ),
+                  Text(
+                    'Contact: (123) 456-7890',
+                    style: AppTextStyles.small1,
+                  ),
+                  // SizedBox(height: ResponsiveSize.height(2)),
+                  Text('Services Offered', style: AppTextStyles.heading2),
+                  ...services.map((s) => ListTile(
+                        contentPadding: EdgeInsets.zero,
+                        title: Text(s['name']!, style: AppTextStyles.medium1),
+                        trailing: Text(s['fee']!, style: AppTextStyles.medium2),
+                      )),
+                  Text('Available Professionals',
+                      style: AppTextStyles.heading2),
+                  SizedBox(height: ResponsiveSize.height(1.2)),
+                  Column(
+                    children: professionals.map((pro) {
+                      return ListTile(
+                        contentPadding: EdgeInsets.zero,
+                        leading: ClipRRect(
+                            borderRadius: BorderRadius.circular(25),
+                            child: Image.network(pro['image']!)),
+                        title: Text(
+                          pro['name']!,
+                          style: AppTextStyles.medium1,
+                        ),
+                        subtitle: Text(
+                          pro['title']!,
+                          style: AppTextStyles.medium2,
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                ],
               ),
             ],
           ),
         ),
       ),
       bottomNavigationBar: Padding(
-        padding: EdgeInsets.all(ResponsiveSize.width(3)),
+        padding: EdgeInsets.all(ResponsiveSize.width(15)),
         child: ElevatedButton(
           onPressed: () {},
           style: ElevatedButton.styleFrom(
+            backgroundColor: AppColors.primaryBlue,
             padding: EdgeInsets.symmetric(
               vertical: ResponsiveSize.height(2),
             ),
@@ -110,7 +107,7 @@ class PetCenterDetailScreen extends StatelessWidget {
           ),
           child: Text(
             'Book Appointment',
-            style: AppTextStyles.heading2,
+            style: AppTextStyles.heading2.copyWith(color: AppColors.white),
           ),
         ),
       ),
