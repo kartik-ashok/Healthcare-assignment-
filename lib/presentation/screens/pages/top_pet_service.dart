@@ -116,6 +116,7 @@ class _HomeScreenState extends State<TopPetService> {
     }
 
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Padding(
         padding: EdgeInsets.all(ResponsiveSize.width(4)),
         child: Column(
@@ -193,66 +194,75 @@ class _HomeScreenState extends State<TopPetService> {
 
             // Top Rated Pet Centers Grid
             Expanded(
-              child: GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  childAspectRatio: 1.2,
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
-                ),
-                itemCount: topRatedCenters.length,
-                itemBuilder: (context, index) {
-                  final center = topRatedCenters[index];
-                  return InkWell(
-                    onTap: () {
-                      Navigator.push(context, MaterialPageRoute(
-                        builder: (context) {
-                          return const ServiceListingScreen();
-                        },
-                      ));
-                    },
-                    child: Card(
-                      elevation: 5,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15),
+              child: topRatedCenters.isEmpty
+                  ? const Center(
+                      child: Text(
+                        "No centers found",
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w500),
                       ),
-                      child: Padding(
-                        padding: EdgeInsets.all(ResponsiveSize.width(0)),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(
-                                  ResponsiveSize.width(2)),
-                              child: Container(
-                                width: ResponsiveSize.width(100),
-                                height: ResponsiveSize.height(50),
-                                child: Image.asset(
-                                  center['image'],
-                                  fit: BoxFit.cover,
-                                ),
+                    )
+                  : GridView.builder(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        childAspectRatio: 1.2,
+                        crossAxisSpacing: 10,
+                        mainAxisSpacing: 10,
+                      ),
+                      itemCount: topRatedCenters.length,
+                      itemBuilder: (context, index) {
+                        final center = topRatedCenters[index];
+                        return InkWell(
+                          onTap: () {
+                            Navigator.push(context, MaterialPageRoute(
+                              builder: (context) {
+                                return const ServiceListingScreen();
+                              },
+                            ));
+                          },
+                          child: Card(
+                            elevation: 5,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            child: Padding(
+                              padding: EdgeInsets.all(ResponsiveSize.width(0)),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(
+                                        ResponsiveSize.width(2)),
+                                    child: Container(
+                                      width: ResponsiveSize.width(100),
+                                      height: ResponsiveSize.height(50),
+                                      child: Image.asset(
+                                        center['image'],
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(height: ResponsiveSize.height(1)),
+                                  Text(
+                                    center['name'],
+                                    style: AppTextStyles.medium1
+                                        .copyWith(fontWeight: FontWeight.bold),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  SizedBox(height: ResponsiveSize.height(0.5)),
+                                  Text(
+                                    '${center['location']} • ⭐ ${center['rating']}',
+                                    style: AppTextStyles.small1,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ],
                               ),
                             ),
-                            SizedBox(height: ResponsiveSize.height(1)),
-                            Text(
-                              center['name'],
-                              style: AppTextStyles.medium1
-                                  .copyWith(fontWeight: FontWeight.bold),
-                              textAlign: TextAlign.center,
-                            ),
-                            SizedBox(height: ResponsiveSize.height(0.5)),
-                            Text(
-                              '${center['location']} • ⭐ ${center['rating']}',
-                              style: AppTextStyles.small1,
-                              textAlign: TextAlign.center,
-                            ),
-                          ],
-                        ),
-                      ),
+                          ),
+                        );
+                      },
                     ),
-                  );
-                },
-              ),
             ),
           ],
         ),

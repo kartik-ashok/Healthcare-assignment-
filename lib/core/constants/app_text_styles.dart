@@ -29,6 +29,17 @@ class AppTextStyles {
     fontWeight: FontWeight.w500,
     color: Colors.black54,
   );
+  static const TextStyle mediumWhite1 = TextStyle(
+    fontSize: 18,
+    fontWeight: FontWeight.w500,
+    color: Colors.white,
+  );
+
+  static const TextStyle mediumWhite2 = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w500,
+    color: Colors.white,
+  );
 
   // Small Styles (Poppins)
   static final TextStyle small1 = GoogleFonts.poppins(

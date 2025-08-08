@@ -31,7 +31,7 @@ class ServiceListingScreen extends StatelessWidget {
       'rating': 4.6,
       'availability': true,
       'petTypes': ['Dog', 'Cat', 'Rabbit'],
-      'image': AppImagePaths.deer,
+      'image': AppImagePaths.cow,
     },
   ];
 
@@ -88,13 +88,33 @@ class ServiceListingScreen extends StatelessWidget {
                         top: Radius.circular(ResponsiveSize.width(8)),
                       ),
                       child: Padding(
-                        padding: const EdgeInsets.all(20),
+                        padding: EdgeInsets.zero,
                         child: Container(
-                          height: ResponsiveSize.height(150),
-                          width: double.infinity,
-                          child: Image.asset(
-                            service['image'],
-                            fit: BoxFit.cover,
+                          height: ResponsiveSize.height(170),
+                          width: double.maxFinite,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(15),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.2),
+                                spreadRadius: 2,
+                                blurRadius: 6,
+                                offset: const Offset(0, 3),
+                              ),
+                            ],
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(15),
+                              child: Image.asset(
+                                service['image'],
+
+                                fit: BoxFit
+                                    .contain, // keeps full image visible without cropping
+                              ),
+                            ),
                           ),
                         ),
                       ),

@@ -110,6 +110,7 @@ class _HomeScreenState extends State<Categories> {
     }).toList();
 
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Padding(
         padding: EdgeInsets.all(ResponsiveSize.width(2)),
         child: Column(
@@ -144,6 +145,7 @@ class _HomeScreenState extends State<Categories> {
 
             SizedBox(height: ResponsiveSize.height(10)),
             DropdownButtonFormField<String>(
+              iconEnabledColor: AppColors.primaryBlue,
               value: selectedCategory,
               onChanged: (String? newValue) {
                 setState(() {
@@ -187,70 +189,78 @@ class _HomeScreenState extends State<Categories> {
 
             // Featured Pet Centers List
             Expanded(
-              child: ListView.builder(
-                itemCount: filteredCenters.length,
-                itemBuilder: (context, index) {
-                  final center = filteredCenters[index];
-
-                  return InkWell(
-                    onTap: () {
-                      Navigator.push(context, MaterialPageRoute(
-                        builder: (context) {
-                          return const ServiceListingScreen();
-                        },
-                      ));
-                    },
-                    child: Card(
-                      margin: EdgeInsets.symmetric(
-                          vertical: ResponsiveSize.height(10)),
-                      shape: RoundedRectangleBorder(
-                        borderRadius:
-                            BorderRadius.circular(ResponsiveSize.width(3)),
+              child: filteredCenters.isEmpty
+                  ? const Center(
+                      child: Text(
+                        "No centers found",
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w500),
                       ),
-                      elevation: 3,
-                      child: ListTile(
-                        leading: ClipRRect(
-                          borderRadius:
-                              BorderRadius.circular(ResponsiveSize.width(2)),
-                          child: Container(
-                            width: ResponsiveSize.width(60),
-                            height: ResponsiveSize.height(60),
-                            child: Image.asset(
-                              center['image'],
-                              fit: BoxFit.cover,
+                    )
+                  : ListView.builder(
+                      itemCount: filteredCenters.length,
+                      itemBuilder: (context, index) {
+                        final center = filteredCenters[index];
+
+                        return InkWell(
+                          onTap: () {
+                            Navigator.push(context, MaterialPageRoute(
+                              builder: (context) {
+                                return const ServiceListingScreen();
+                              },
+                            ));
+                          },
+                          child: Card(
+                            margin: EdgeInsets.symmetric(
+                                vertical: ResponsiveSize.height(10)),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(
+                                  ResponsiveSize.width(3)),
+                            ),
+                            elevation: 3,
+                            child: ListTile(
+                              leading: ClipRRect(
+                                borderRadius: BorderRadius.circular(
+                                    ResponsiveSize.width(2)),
+                                child: Container(
+                                  width: ResponsiveSize.width(60),
+                                  height: ResponsiveSize.height(60),
+                                  child: Image.asset(
+                                    center['image'],
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                              title: Text(
+                                center['name'],
+                                style: AppTextStyles.medium1,
+                              ),
+                              subtitle: Text(
+                                '${center['location']} • ⭐ ${center['rating']}',
+                                style: AppTextStyles.medium2,
+                              ),
+                              trailing: ElevatedButton(
+                                onPressed: () {
+                                  // Handle booking action
+                                },
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: AppColors.primaryBlue,
+                                    foregroundColor: Colors.white, // Text color
+                                    elevation: 4, // Subtle shadow
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 20, vertical: 12),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(
+                                          ResponsiveSize.width(3)),
+                                    ),
+                                    textStyle: AppTextStyles.medium1),
+                                child: const Text('Book'),
+                              ),
                             ),
                           ),
-                        ),
-                        title: Text(
-                          center['name'],
-                          style: AppTextStyles.medium1,
-                        ),
-                        subtitle: Text(
-                          '${center['location']} • ⭐ ${center['rating']}',
-                          style: AppTextStyles.medium2,
-                        ),
-                        trailing: ElevatedButton(
-                          onPressed: () {
-                            // Handle booking action
-                          },
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: AppColors.primaryBlue,
-                              foregroundColor: Colors.white, // Text color
-                              elevation: 4, // Subtle shadow
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 20, vertical: 12),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(
-                                    ResponsiveSize.width(3)),
-                              ),
-                              textStyle: AppTextStyles.medium1),
-                          child: const Text('Book'),
-                        ),
-                      ),
+                        );
+                      },
                     ),
-                  );
-                },
-              ),
             )
           ],
         ),

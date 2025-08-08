@@ -7,6 +7,41 @@ import 'package:healthcare_assignment/core/constants/app_text_styles.dart';
 class PetCenterDetailScreen extends StatelessWidget {
   const PetCenterDetailScreen({super.key});
 
+  void _showSuccessBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isDismissible: false,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(15)),
+      ),
+      builder: (context) {
+        Future.delayed(const Duration(seconds: 2), () {
+          Navigator.pop(context);
+        });
+        return SizedBox(
+          width: double.maxFinite,
+          height:
+              MediaQuery.of(context).size.height * 0.20, // 20% of screen height
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(Icons.check_circle, size: 50, color: Colors.green),
+                SizedBox(height: ResponsiveSize.height(1.5)),
+                Text(
+                  'Submitted successfully',
+                  style: AppTextStyles.heading2,
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final List<Map<String, String>> services = [
@@ -36,14 +71,17 @@ class PetCenterDetailScreen extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(15),
+          padding: EdgeInsets.all(ResponsiveSize.width(20)),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Image.asset(
-                AppImagePaths.clinic1,
-                width: double.infinity,
-                fit: BoxFit.cover,
+              ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: Image.asset(
+                  AppImagePaths.clinic1,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                ),
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -93,9 +131,77 @@ class PetCenterDetailScreen extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: Padding(
-        padding: EdgeInsets.all(ResponsiveSize.width(15)),
+        padding: EdgeInsets.all(ResponsiveSize.width(20)),
         child: ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            showModalBottomSheet(
+              context: context,
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.vertical(top: Radius.circular(15)),
+              ),
+              builder: (context) {
+                return SizedBox(
+                  height: MediaQuery.of(context).size.height *
+                      0.25, // 25% of screen height
+                  child: Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Are you sure you want to confirm?',
+                          style: AppTextStyles.heading2,
+                          textAlign: TextAlign.center,
+                        ),
+                        const Spacer(),
+                        Padding(
+                          padding: const EdgeInsets.all(22),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              SizedBox(
+                                width: ResponsiveSize.width(100),
+                                height: ResponsiveSize.height(40),
+                                child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.grey,
+                                  ),
+                                  onPressed: () {
+                                    Navigator.pop(context); // close the sheet
+                                  },
+                                  child: const Text(
+                                    'No',
+                                    style: AppTextStyles.medium2,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: ResponsiveSize.width(100),
+                                height: ResponsiveSize.height(40),
+                                child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: AppColors.primaryBlue,
+                                  ),
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                    _showSuccessBottomSheet(context);
+                                  },
+                                  child: const Text(
+                                    'Yes',
+                                    style: AppTextStyles.mediumWhite2,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              },
+            );
+          },
           style: ElevatedButton.styleFrom(
             backgroundColor: AppColors.primaryBlue,
             padding: EdgeInsets.symmetric(
