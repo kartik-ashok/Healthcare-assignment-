@@ -1,4 +1,4 @@
-# healthcare_assignment
+# counter_app
 
 A new Flutter project.
 
