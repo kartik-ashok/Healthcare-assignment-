@@ -41,3 +41,9 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+
+lib/presentation/screens/pages/pet_center_detail_screen.dart
+lib/presentation/screens/pages/categories.dart
+lib/presentation/screens/pages/tabs.dart
+lib/presentation/screens/pages/top_pet_service.dart
